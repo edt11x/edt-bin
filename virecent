@@ -1,0 +1,3 @@
+#!/bin/bash
+# vi maybe the minimal vi, vim, gvim, so I will not a path
+vi `/bin/ls -t  | /usr/bin/head -1`
