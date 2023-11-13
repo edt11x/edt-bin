@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ ! -d ~/.dropbox-dist ]
+then
+    echo "FAILURE, I can not find the .dropbox-dist directory!!!"
+    exit 1
+fi
+if [ ! -f ~/.dropbox-dist/dropboxd ]
+then
+    echo "FAILURE, I can not find the Dropbox daemon, dropboxd"
+    exit 1
+fi
+nohup ~/.dropbox-dist/dropboxd &
+disown
+exit 0
