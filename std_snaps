@@ -1,0 +1,5 @@
+#!/bin/bash
+snap install core
+snap install hello-world
+snap install snap-store
+snap install dnsbench
