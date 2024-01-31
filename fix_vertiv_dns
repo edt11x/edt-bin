@@ -1,0 +1,7 @@
+echo "====== Make sure the DNS on the VM has multiple ways to resolve github.com and gitlab.com ======"
+grep -qxF 'nameserver 10.200.203.200' /etc/resolv.conf || sudo bash -c 'echo "nameserver 10.200.203.200" >> /etc/resolv.conf'
+grep -qxF 'nameserver 10.88.19.200'   /etc/resolv.conf || sudo bash -c 'echo "nameserver 10.88.19.200" >> /etc/resolv.conf'
+grep -qxF 'nameserver 10.146.3.200'   /etc/resolv.conf || sudo bash -c 'echo "nameserver 10.146.3.200" >> /etc/resolv.conf'
+grep -qxF 'nameserver 8.8.8.8'        /etc/resolv.conf || sudo bash -c 'echo "nameserver 8.8.8.8" >> /etc/resolv.conf'
+grep -qxF 'nameserver 9.9.9.9'        /etc/resolv.conf || sudo bash -c 'echo "nameserver 9.9.9.9" >> /etc/resolv.conf'
+grep -qxF 'nameserver 1.1.1.1'        /etc/resolv.conf || sudo bash -c 'echo "nameserver 1.1.1.1" >> /etc/resolv.conf'
