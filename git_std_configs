@@ -1,0 +1,7 @@
+#!/bin/bash
+echo "Setting up standard configurations for git"
+git config --global http.postBuffer 524288000  # 500 MB
+git config --global http.lowSpeedLimit 0
+git config --global http.lowSpeedTime 999999
+echo "Done."
+exit 0

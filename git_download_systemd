@@ -1,0 +1,13 @@
+#!/bin/bash
+git config --global http.postBuffer 524288000  # 500 MB
+git config --global http.lowSpeedLimit 0
+git config --global http.lowSpeedTime 999999
+mkdir -p /home/user/Downloads
+while :
+do
+	LANG=C git -c core.fsyncobjectfiles=0 clone --bare --mirror git://github.com/systemd/systemd-stable.git /home/user/Downloads/raven-os-cache/hardknott/downloads/git2/github.com.systemd.systemd-stable.git --progress
+	if [ $? = 0 ]
+	then
+		break
+	fi
+done
