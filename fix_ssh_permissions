@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Set the correct permissions on the .ssh directory
+chmod 700 ~/.ssh
+
+# Set the correct permissions on all files in the .ssh directory
+find ~/.ssh/ -type f -exec chmod 600 {} \;
+
+# Set the correct permissions on all public key files in the .ssh directory
+find ~/.ssh/ -type f -name "*.pub" -exec chmod 644 {} \;
+
+exit 0

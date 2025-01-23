@@ -1,0 +1,10 @@
+#!/bin/sh
+
+for i in `find . -print`
+do
+    if [ -h "$i" ] && [ ! -r "$i" ]
+    then
+        echo "Bad symbolic link $i"
+        /bin/rm -i "$i"
+    fi
+done

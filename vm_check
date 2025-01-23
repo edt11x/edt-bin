@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# Check CPU Vendor
+echo "Checking CPU Vendor ..."
+grep '^vendor' /proc/cpuinfo | sort | uniq
+
+# Check VT-X and VT-D
+echo "Checking VT-X ..."
+if grep -q -E 'vmx|svm' /proc/cpuinfo; then
+  echo "VT-X       : Supported"
+else
+  sudo dmesg | grep -q -i 'vt-x'
+  if [ $? = 0 ]
+  then
+      echo "VT-X       : Supported"
+  else
+      echo "VT-X       : NOT Supported!!!!"
+  fi
+fi
+
+echo "Checking VT-D..."
+if grep -q -E 'dmar|iommu' /proc/cpuinfo; then
+  echo "VT-D       : Supported"
+else
+  sudo dmesg | grep -q -i 'vt-d'
+  if [ $? = 0 ]
+  then
+      echo "VT-D       : Supported"
+  else
+      echo "VT-D       : NOT Supported!!!!"
+  fi
+fi
+
+# Check AMD-Vi and IOMMU
+if grep -q 'AuthenticAMD' /proc/cpuinfo; then
+    echo "Checking AMD-Vi..."
+    if grep -q -E 'amd-vi|iommu' /proc/cpuinfo; then
+      echo "AMD-Vi     : Supported"
+    else
+      echo "AMD-Vi     : NOT Supported!!!!"
+    fi
+else
+    echo "Checking IOMMU..."
+    if grep -q -E 'amd-vi|iommu' /proc/cpuinfo; then
+      echo "IOMMU      : Supported"
+    else
+      echo "IOMMU      : NOT Supported!!!!"
+    fi
+fi
+
+# Check SR-IOV
+echo "Checking SR-IOV..."
+if lspci -nn | grep -q 'PCIe Bridge'; then
+  echo "SR-IOV     : Supported"
+else
+  echo "SR-IOV     : NOT Supported!!!!"
+fi
+
+# Check VFIO
+echo "Checking VFIO..."
+if lsmod | grep -q 'vfio'; then
+  echo "VFIO       : Supported"
+else
+  echo "VFIO       : NOT Supported!!!!"
+fi
+
+# Check IOMMU Groups
+echo "Checking IOMMU Groups..."
+for d in /sys/kernel/iommu_groups/*; do
+  echo "IOMMU Group: $(basename $d)"
+done
